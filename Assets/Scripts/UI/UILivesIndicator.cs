@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class UILivesIndicator : MonoBehaviour
 {
-    private GameManager _gameManager;
     [SerializeField] private GameObject lifeIndicator;
-    void Awake()
-    {
-        _gameManager = FindObjectOfType<GameManager>();
-    }
     void Update()
     {
-        if (transform.childCount != _gameManager.LivesLeft())
+        if (transform.childCount != GameManager.Instance.LivesLeft())
         {
             RefreshChildren();
         }
@@ -27,7 +22,7 @@ public class UILivesIndicator : MonoBehaviour
         }
         
         //add the right number back
-        for (int i = 0; i < _gameManager.LivesLeft(); i++)
+        for (int i = 0; i < GameManager.Instance.LivesLeft(); i++)
         {
             Instantiate(lifeIndicator, transform);
         }

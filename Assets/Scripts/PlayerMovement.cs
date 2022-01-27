@@ -8,21 +8,19 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask _environmentLayerMask;
     [SerializeField] private LayerMask _interactableLayerMask;
     private PlayerEffects _playerEffects;
-    private GameManager _gameManager;
     private void Awake()
     {
         _playerEffects = GetComponent<PlayerEffects>();
-        _gameManager = FindObjectOfType<GameManager>();
     }
     public void Move(Vector2Int direction)
     {
-        if (_gameManager.GetGameState() == GameState.Playing)
+        if (GameManager.Instance.GetGameState() == GameState.Playing)
         {
             int count = MoveOnceRecursive(direction, 0);
             if (count > 0)
             {
                 _playerEffects.HitWall(direction);
-                _gameManager.TurnTaken();
+                GameManager.Instance.TurnTaken();
             }
         }
     }

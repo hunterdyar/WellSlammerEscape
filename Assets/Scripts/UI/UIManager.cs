@@ -8,46 +8,33 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] private GameObject losePanel;
     [SerializeField] private GameObject winPanel;
-    private GameManager _gameManager;
-    private GameState currentlyDisplayedState;
-    void Awake()
+
+    private void OnEnable()
     {
-        _gameManager = FindObjectOfType<GameManager>();
+        GameManager.OnGameStateChange += UpdateDisplayedState;
+    }
+    private void OnDisable()
+    {
+        GameManager.OnGameStateChange -= UpdateDisplayedState;
     }
 
-    void Start()
+    void UpdateDisplayedState(GameState newState)
     {
-        UpdateDisplayedState();
-    }
-
-    private void Update()
-    {
-        if (_gameManager.GetGameState() != currentlyDisplayedState)
-        {
-            UpdateDisplayedState();
-        }
-    }
-
-    void UpdateDisplayedState()
-    {
-        if (_gameManager.GetGameState() == GameState.Lost)
+        if (newState == GameState.Lost)
         {
             losePanel.SetActive(true);
             winPanel.SetActive(false);
-            currentlyDisplayedState = GameState.Lost;
         }
-        else if(_gameManager.GetGameState() == GameState.Won)
+        else if(newState == GameState.Won)
         {
             losePanel.SetActive(false);
             winPanel.SetActive(true);
-            currentlyDisplayedState = GameState.Won;
 
         }
-        else if (_gameManager.GetGameState() == GameState.Playing)
+        else if (newState == GameState.Playing)
         {
             losePanel.SetActive(false);
             winPanel.SetActive(false);
-            currentlyDisplayedState = GameState.Playing;
 
         }
     }

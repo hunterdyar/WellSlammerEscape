@@ -1,18 +1,35 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance => _instance;
+    private static GameManager _instance;
+    
+    public static Action<GameState> OnGameStateChange;
     [SerializeField] private LevelList levelList;
     [SerializeField] private int lives;
     private int turnCount = 0;
 
     private GameState gameState;//0 is playing. 1 is lost. 2 is won. 3 is paused.
 
+    private void Awake()
+    {
+        if (_instance != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
+    }
+
     void Start()
     {
-        gameState = GameState.Playing;
+       ChangeGameState(GameState.Playing);
     }
 
     public void GetExtraLife()
@@ -24,6 +41,7 @@ public class GameManager : MonoBehaviour
     {
         return lives - turnCount;
     }
+
     public void TurnTaken()
     {
         turnCount++;
@@ -31,6 +49,12 @@ public class GameManager : MonoBehaviour
         {
             Lose();
         }
+    }
+
+    private void ChangeGameState(GameState newGameState)
+    {
+        gameState = newGameState;
+        OnGameStateChange?.Invoke(newGameState);
     }
 
     public GameState GetGameState()
@@ -42,14 +66,14 @@ public class GameManager : MonoBehaviour
     {
         if (gameState != GameState.Won)
         {
-            gameState = GameState.Lost;
+            ChangeGameState(GameState.Lost);
             Debug.Log("game over");
         }
     }
 
     public void Win()
     {
-        gameState = GameState.Won;
+        ChangeGameState(GameState.Won);
         Debug.Log("won!");
     }
 

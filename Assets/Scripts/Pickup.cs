@@ -3,17 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pickup : MonoBehaviour
+public class Pickup : Interactable
 {
-   private GameManager _gameManager;
-   private void Awake()
+   public override void Interact()
    {
-      _gameManager = FindObjectOfType<GameManager>();
-   }
-
-   public void PickUp()
-   {
-      _gameManager.GetExtraLife();
+      GameManager.Instance.GetExtraLife();
       Destroy(gameObject);
    }
 }

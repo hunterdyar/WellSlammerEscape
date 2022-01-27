@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1474145722903907200}
   - component: {fileID: 1474145722903907201}
   - component: {fileID: 1474145722903907231}
-  - component: {fileID: 1474145722903907230}
   - component: {fileID: 1474145722903907229}
   m_Layer: 7
   m_Name: Level Goal
@@ -113,18 +112,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1474145722903907230
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1474145722903907202}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a054e0c063969df40b77e925a75a9391, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1474145722903907229
 MonoBehaviour:
   m_ObjectHideFlags: 0

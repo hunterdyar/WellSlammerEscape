@@ -3,17 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Goal : MonoBehaviour
+public class Goal : Interactable
 {
-	private GameManager _gameManager;
-
-	private void Awake()
+	public override void Interact()
 	{
-		_gameManager = FindObjectOfType<GameManager>();
-	}
-
-	public void PlayerAtGoal()
-	{
-		_gameManager.Win();
+		GameManager.Instance.Win();
 	}
 }
