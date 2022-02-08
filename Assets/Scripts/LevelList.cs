@@ -6,8 +6,7 @@ using UnityEngine.SceneManagement;
 public class LevelList : ScriptableObject
 {
 	public int CurrentLevel;
-	public List<string> levels;
-
+	[SerializeField] private List<string> levels;
 	public void GoToNextLevel()
 	{
 		CurrentLevel++;
